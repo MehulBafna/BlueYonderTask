@@ -6,6 +6,7 @@ import pandas as pd
 from sklearn.model_selection import train_test_split
 from dataclasses import dataclass
 from ucimlrepo import fetch_ucirepo
+from src.components.data_transformation import DataTransformation,DataTransformationConfig
 
 @dataclass
 class DataIngestionConfig:
@@ -22,7 +23,26 @@ class DataIngestion:
         try:
             bike_sharing = fetch_ucirepo(id=275)
             df = bike_sharing.data.original
-            print(df)
+            new_column_names = {
+                    'dteday':'date',
+                    'season': 'season',
+                    'yr': 'year',
+                    'mnth': 'month',
+                    'hr': 'hour',
+                    'holiday': 'holiday',
+                    'weekday': 'weekday',
+                    'workingday': 'working_day',
+                    'weathersit': 'weather_situation',
+                    'temp': 'temperature',
+                    'atemp': 'feels_like_temperature',
+                    'hum': 'humidity',
+                    'windspeed': 'wind_speed',
+                    'cnt':'count'
+                }
+            
+            df.rename(columns=new_column_names, inplace=True)
+            df = df.drop(columns=['month','date','instant'],axis=1)
+            df['i_hour'] = df['hour'].apply(lambda x: 1 if (7 <= x <= 10) or (16 <= x <= 20) else 0)
             logging.info('Read the dataset as dataframe')
 
             os.makedirs(os.path.dirname(self.ingestion_config.train_data_path),exist_ok=True)
@@ -31,14 +51,15 @@ class DataIngestion:
 
             logging.info("Train test split initiated")
             train_set,test_set=train_test_split(df,test_size=0.2,random_state=42)
-
+            train_set.rename(columns=new_column_names, inplace=True)
+            test_set.rename(columns=new_column_names, inplace=True)
             train_set.to_csv(self.ingestion_config.train_data_path,index=False,header=True)
 
             test_set.to_csv(self.ingestion_config.test_data_path,index=False,header=True)
 
-            logging.info("Ingestion of the data iss completed")
+            logging.info("Ingestion of the data is completed")
 
-            return(
+            return (
                 self.ingestion_config.train_data_path,
                 self.ingestion_config.test_data_path
 
@@ -48,4 +69,10 @@ class DataIngestion:
         
 if __name__=='__main__':
     obj = DataIngestion()
-    obj.initiate_data_ingestion()
+  
+    train_data,test_data=obj.initiate_data_ingestion()
+
+
+    data_trans = DataTransformation()
+    
+    data_trans.initiate_data_transformation(train_data,test_data)
