@@ -1,0 +1,135 @@
+<html>
+<body>
+  <div class="login">
+    <h1>Total Rental Bikes Count Predictor</h1>
+
+    <form action="{{ url_for('predict_datapoint')}}" method="post">
+      <h1>
+        <legend>Bike Rental Prediction</legend>
+      </h1>
+      <div class="mb-3">
+        <label class="form-label">Season</label>
+        <select class="form-control" name="season" placeholder="Enter Season" required>
+          <option class="placeholder" selected disabled value="">Select Season</option>
+          <option value="1">Winter</option>
+          <option value="2">Spring</option>
+          <option value="3">Summer</option>
+          <option value="4">Fall</option>
+        </select>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Year</label>
+        <select class="form-control" name="year" placeholder="Enter Year" required>
+          <option class="placeholder" selected disabled value="">Select Year</option>
+          <option value="0">2024</option>
+          <option value="1">2025</option>
+        </select>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Hour</label>
+        <select class="form-control" name="hour" placeholder="Enter Hour" required>
+          <option class="placeholder" selected disabled value="">Select Hour</option>
+          <option value="0">0</option>
+          <option value="1">1</option>
+	<option value="2">2</option>
+	<option value="3">3</option>
+	<option value="4">4</option>
+	<option value="5">5</option>
+	<option value="6">6</option>
+	<option value="7">7</option>
+	<option value="8">8</option>
+	<option value="9">9</option>
+	<option value="10">10</option>
+	<option value="11">11</option>
+	<option value="12">12</option>
+	<option value="13">13</option>
+	<option value="14">14</option>
+	<option value="15">15</option>
+	<option value="16">16</option>
+	<option value="17">17</option>
+	<option value="18">18</option>
+	<option value="19">19</option>
+	<option value="20">20</option>
+	<option value="21">21</option>
+	<option value="22">22</option>
+      <option value="23">23</option>
+
+        </select>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Holiday</label>
+        <select class="form-control" name="holiday" placeholder="Enter Holiday" required>
+          <option class="placeholder" selected disabled value="">Select Holiday</option>
+          <option value="1">Holiday</option>
+          <option value="0">Non-Holiday</option>
+        </select>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Weekday</label>
+        <select class="form-control" name="weekday" placeholder="Enter Weekday" required>
+          <option class="placeholder" selected disabled value="">Select Weekday</option>
+          <option value="0">Sunday</option>
+          <option value="1">Monday</option>
+	  <option value="2">Tuesday</option>
+	  <option value="3">Wednesday</option>
+	  <option value="4">Thursday</option>
+	  <option value="5">Friday</option>
+          <option value="6">Saturday</option>
+        </select>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Workingday</label>
+        <select class="form-control" name="working_day" placeholder="Enter Workingday" required>
+          <option class="placeholder" selected disabled value="">Select Workingday</option>
+          <option value="1">Working Day</option>
+          <option value="0">Non-Working Day</option>
+        </select>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Weather</label>
+        <select class="form-control" name="weather_situation" placeholder="Enter Weather" required>
+          <option class="placeholder" selected disabled value="">Select Weather</option>
+          <option value="1">Clear</option>
+          <option value="2">Misty</option>
+          <option value="3">Light Rain/Snow</option>
+          <option value="4">Heavy Rain/Snow</option>
+        </select>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Temperature</label>
+        <input class="form-control" type="number" name="temperature" step = "any" placeholder="Enter Temperature" required>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Feels like Temperature</label>
+        <input class="form-control" type="number" name="feels_like_temperature" step = "any" placeholder="Enter Feels like Temperature" required>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Humidity</label>
+        <input class="form-control" type="number" name="humidity" step = "any" placeholder="Enter Humidity" required>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Windspeed</label>
+        <input class="form-control" type="number" name="wind_speed" step = "any" placeholder="Enter Windspeed" required>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Casual</label>
+        <input class="form-control" type="number" name="casual" placeholder="Enter Casual" required>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Registered</label>
+        <input class="form-control" type="number" name="registered" placeholder="Enter Registered" required>
+      </div>
+      <div class="mb-3">
+	
+        <label class="form-label">Peak Hour</label>
+        <input class="form-control" type="number" name="i_hour" placeholder="Peak Hour" required>
+      </div>
+      <div class="mb-3">
+        <input class="btn btn-primary" type="submit" value="Predict Total Rental Bikes Count" required />
+      </div>
+    </form>
+    <h2>
+      THE prediction is {{results}}
+    </h2>
+  </body>
+</html>
