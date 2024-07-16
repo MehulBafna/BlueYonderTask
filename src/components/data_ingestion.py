@@ -7,6 +7,17 @@ from sklearn.model_selection import train_test_split
 from dataclasses import dataclass
 from ucimlrepo import fetch_ucirepo
 from src.components.data_transformation import DataTransformation,DataTransformationConfig
+from src.components.model_trainer import ModelTrainer,ModelTrainerConfig
+
+import warnings
+import os 
+
+# Set LOKY_MAX_CPU_COUNT to the number of cores you want to use
+os.environ["LOKY_MAX_CPU_COUNT"] = "4" 
+
+# Ignore specific warnings
+warnings.filterwarnings("ignore", category=UserWarning, message=".*Could not find the number of physical cores.*")
+
 
 @dataclass
 class DataIngestionConfig:
@@ -75,4 +86,7 @@ if __name__=='__main__':
 
     data_trans = DataTransformation()
     
-    data_trans.initiate_data_transformation(train_data,test_data)
+    train_arr,test_arr,_=data_trans.initiate_data_transformation(train_data,test_data)
+
+    modeltrainer = ModelTrainer()
+    print(modeltrainer.initiate_model_trainer(train_arr,test_arr))

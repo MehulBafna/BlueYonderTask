@@ -14,6 +14,15 @@ import os
 
 from src.utils import save_object
 
+import warnings
+import os 
+
+# Set LOKY_MAX_CPU_COUNT to the number of cores you want to use
+os.environ["LOKY_MAX_CPU_COUNT"] = "4" 
+
+# Ignore specific warnings
+warnings.filterwarnings("ignore", category=UserWarning, message=".*Could not find the number of physical cores.*")
+
 @dataclass
 class DataTransformationConfig:
     preprocessor_obj_file_path=os.path.join('artifacts',"preprocessor.pkl")
@@ -29,7 +38,6 @@ class DataTransformation:
         
         '''
         try:
-            logging.info(1)
             numerical_columns = ["temperature","feels_like_temperature","registered","casual","wind_speed","humidity",'hour']
             categorical_columns = [
                 "season","year","weekday","working_day","weather_situation","holiday",'i_hour'
@@ -68,7 +76,6 @@ class DataTransformation:
             return preprocessor
         
         except Exception as e:
-            logging.info(f"Numerical columns: {numerical_columns}")
             raise CustomException(e,sys)
         
     def initiate_data_transformation(self,train_path,test_path):
@@ -103,7 +110,6 @@ class DataTransformation:
             train_df.loc[:,['humidity']]=train_df.loc[:,['humidity']]*67
             train_df.loc[:,['wind_speed']]= train_df.loc[:,['wind_speed']]*100
             #train_df['i_hour'] = train_df['hour'].apply(lambda x: 1 if (7 <= x <= 10) or (16 <= x <= 20) else 0)
-            logging.info(111)
             input_feature_train_df=train_df.drop(columns=[target_column_name],axis=1)
             target_feature_train_df=train_df[target_column_name]
             test_df = test_df[(test_df['count'] >= lower_bound) & (test_df['count'] <= upper_bound)]
@@ -121,7 +127,6 @@ class DataTransformation:
             )
             preprocessing_obj=self.get_data_transformer_object()
             input_feature_train_arr=preprocessing_obj.fit_transform(input_feature_train_df)
-            logging.info(11111)
             input_feature_test_arr=preprocessing_obj.transform(input_feature_test_df)
 
             train_arr = np.c_[
