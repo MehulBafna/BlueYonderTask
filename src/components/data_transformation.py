@@ -94,31 +94,9 @@ class DataTransformation:
             
             target_column_name="count"
 
-            Q1 = train_df['count'].quantile(0.25)
-            Q3 = train_df['count'].quantile(0.75)
-            IQR = Q3 - Q1
-
-            # Define bounds for the outliers
-            lower_bound = Q1 - 1.5 * IQR
-            upper_bound = Q3 + 1.5 * IQR
-
-            # Identify the outliers
-            train_df = train_df[(train_df['count'] >= lower_bound) & (train_df['count'] <= upper_bound)]
-            train_df = train_df.reset_index(drop=True)
-            train_df.loc[:,['temperature']] = train_df.loc[:,['temperature']].apply(lambda x: 47*x -8)
-            train_df.loc[:,['feels_like_temperature']] = train_df.loc[:,['feels_like_temperature']].apply(lambda x: 66*x -16)
-            train_df.loc[:,['humidity']]=train_df.loc[:,['humidity']]*67
-            train_df.loc[:,['wind_speed']]= train_df.loc[:,['wind_speed']]*100
-            #train_df['i_hour'] = train_df['hour'].apply(lambda x: 1 if (7 <= x <= 10) or (16 <= x <= 20) else 0)
+            
             input_feature_train_df=train_df.drop(columns=[target_column_name],axis=1)
             target_feature_train_df=train_df[target_column_name]
-            test_df = test_df[(test_df['count'] >= lower_bound) & (test_df['count'] <= upper_bound)]
-            test_df = test_df.reset_index(drop=True)
-            test_df.loc[:,['temperature']] = test_df.loc[:,['temperature']].apply(lambda x: 47*x -8)
-            test_df.loc[:,['feels_like_temperature']] = test_df.loc[:,['feels_like_temperature']].apply(lambda x: 66*x -16)
-            test_df.loc[:,['humidity']]=test_df.loc[:,['humidity']]*67
-            test_df.loc[:,['wind_speed']]= test_df.loc[:,['wind_speed']]*100
-            #test_df['i_hour'] = test_df['hour'].apply(lambda x: 1 if (7 <= x <= 10) or (16 <= x <= 20) else 0)
             input_feature_test_df=test_df.drop(columns=[target_column_name],axis=1)
             target_feature_test_df=test_df[target_column_name]
 

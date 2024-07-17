@@ -54,6 +54,23 @@ class DataIngestion:
             df.rename(columns=new_column_names, inplace=True)
             df = df.drop(columns=['month','date','instant'],axis=1)
             df['i_hour'] = df['hour'].apply(lambda x: 1 if (7 <= x <= 10) or (16 <= x <= 20) else 0)
+            Q1 = df['count'].quantile(0.25)
+            Q3 = df['count'].quantile(0.75)
+            IQR = Q3 - Q1
+
+            # Define bounds for the outliers
+            lower_bound = Q1 - 1.5 * IQR
+            upper_bound = Q3 + 1.5 * IQR
+
+            # Identify the outliers
+            df = df[(df['count'] >= lower_bound) & (df['count'] <= upper_bound)]
+            df = df.reset_index(drop=True)
+            df.loc[:,['temperature']] = df.loc[:,['temperature']].apply(lambda x: 47*x -8)
+            df.loc[:,['feels_like_temperature']] = df.loc[:,['feels_like_temperature']].apply(lambda x: 66*x -16)
+            df.loc[:,['humidity']]=df.loc[:,['humidity']]*67
+            df.loc[:,['wind_speed']]= df.loc[:,['wind_speed']]*100
+            
+            
             logging.info('Read the dataset as dataframe')
 
             os.makedirs(os.path.dirname(self.ingestion_config.train_data_path),exist_ok=True)
