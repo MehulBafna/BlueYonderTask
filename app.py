@@ -3,6 +3,7 @@ from flask import Flask, request,render_template
 import numpy as np 
 import pandas as pd 
 from src.pipeline.predict_pipeline import CustomData,PredictPipeline
+import gunicorn
 
 application=Flask(__name__)
 
