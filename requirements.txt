@@ -10,5 +10,4 @@ joblib
 ucimlrepo
 nbformat==5.10.4
 gunicorn 
-collections
 -e .
