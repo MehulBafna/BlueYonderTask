@@ -52,7 +52,7 @@ class DataIngestion:
                 }
             
             df.rename(columns=new_column_names, inplace=True)
-            df = df.drop(columns=['month','date','instant','feels_like_temperature','casual','registered'],axis=1)
+            df = df.drop(columns=['month','date','instant','feels_like_temperature','casual'],axis=1)
             df['i_hour'] = df['hour'].apply(lambda x: 1 if (7 <= x <= 10) or (16 <= x <= 20) else 0)
             Q1 = df['count'].quantile(0.25)
             Q3 = df['count'].quantile(0.75)

@@ -40,7 +40,7 @@ class CustomData:
         humidity: float,
         wind_speed:float,
         #casual: int,
-        #registered: int,
+        registered: int,
         i_hour: int):
 
         self.season = season
@@ -67,7 +67,7 @@ class CustomData:
 
         #self.casual = casual 
 
-        #self.registered = registered 
+        self.registered = registered 
 
         self.i_hour = i_hour
 
@@ -88,7 +88,7 @@ class CustomData:
                 "humidity": [self.humidity],
                 "wind_speed": [self.wind_speed],
                 #"casual": [self.casual],
-                #"registered": [self.registered],
+                "registered": [self.registered],
                 "i_hour": [self.i_hour]
 
             }

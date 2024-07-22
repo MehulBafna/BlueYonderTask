@@ -38,7 +38,7 @@ class DataTransformation:
         
         '''
         try:
-            numerical_columns = ["temperature","wind_speed","humidity",'hour']
+            numerical_columns = ["temperature","wind_speed","humidity",'hour','registered']
             categorical_columns = [
                 "season","year","weekday","working_day","weather_situation","holiday",'i_hour'
             ]
