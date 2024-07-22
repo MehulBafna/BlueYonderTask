@@ -29,11 +29,11 @@ def predict_datapoint():
             working_day=int(request.form.get('working_day')),
             weather_situation=int(request.form.get('weather_situation')),
             temperature=float(request.form.get('temperature')),
-            feels_like_temperature=float(request.form.get('feels_like_temperature')),
+            #feels_like_temperature=float(request.form.get('feels_like_temperature')),
             humidity=float(request.form.get('humidity')),
             wind_speed=float(request.form.get('wind_speed')),
-            casual=int(request.form.get('casual')),
-            registered=int(request.form.get('registered')),
+            #casual=int(request.form.get('casual')),
+            #registered=int(request.form.get('registered')),
             i_hour=int(request.form.get('i_hour'))
         )
         pred_df=data.get_data_as_data_frame()

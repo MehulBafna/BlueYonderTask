@@ -36,11 +36,11 @@ class CustomData:
         working_day: int,
         weather_situation: int,
         temperature: float,
-        feels_like_temperature: float,
+        #feels_like_temperature: float,
         humidity: float,
         wind_speed:float,
-        casual: int,
-        registered: int,
+        #casual: int,
+        #registered: int,
         i_hour: int):
 
         self.season = season
@@ -59,15 +59,15 @@ class CustomData:
 
         self.temperature = temperature
 
-        self.feels_like_temperature = feels_like_temperature 
+        #self.feels_like_temperature = feels_like_temperature 
 
         self.humidity = humidity 
 
         self.wind_speed = wind_speed 
 
-        self.casual = casual 
+        #self.casual = casual 
 
-        self.registered = registered 
+        #self.registered = registered 
 
         self.i_hour = i_hour
 
@@ -84,11 +84,11 @@ class CustomData:
                 "working_day": [self.working_day],
                 "weather_situation": [self.weather_situation],
                 "temperature": [self.temperature],
-                "feels_like_temperature":[self.feels_like_temperature],
+                #"feels_like_temperature":[self.feels_like_temperature],
                 "humidity": [self.humidity],
                 "wind_speed": [self.wind_speed],
-                "casual": [self.casual],
-                "registered": [self.registered],
+                #"casual": [self.casual],
+                #"registered": [self.registered],
                 "i_hour": [self.i_hour]
 
             }

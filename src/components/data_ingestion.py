@@ -52,7 +52,7 @@ class DataIngestion:
                 }
             
             df.rename(columns=new_column_names, inplace=True)
-            df = df.drop(columns=['month','date','instant'],axis=1)
+            df = df.drop(columns=['month','date','instant','feels_like_temperature','casual','registered'],axis=1)
             df['i_hour'] = df['hour'].apply(lambda x: 1 if (7 <= x <= 10) or (16 <= x <= 20) else 0)
             Q1 = df['count'].quantile(0.25)
             Q3 = df['count'].quantile(0.75)
@@ -66,7 +66,7 @@ class DataIngestion:
             df = df[(df['count'] >= lower_bound) & (df['count'] <= upper_bound)]
             df = df.reset_index(drop=True)
             df.loc[:,['temperature']] = df.loc[:,['temperature']].apply(lambda x: 47*x -8)
-            df.loc[:,['feels_like_temperature']] = df.loc[:,['feels_like_temperature']].apply(lambda x: 66*x -16)
+            #df.loc[:,['feels_like_temperature']] = df.loc[:,['feels_like_temperature']].apply(lambda x: 66*x -16)
             df.loc[:,['humidity']]=df.loc[:,['humidity']]*67
             df.loc[:,['wind_speed']]= df.loc[:,['wind_speed']]*100
             
